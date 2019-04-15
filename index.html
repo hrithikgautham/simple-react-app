@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>get Users</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>	
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+	<div id = "root"></div>
+	<script type= "text/babel">
+class App extends React.Component {
+	constructor(props){
+		super(props);
+		this.handleChange = this.handleChange.bind(this);
+		this.state = {
+			users : [
+				{
+						id : 1,
+						fname : "hrithik",
+						lname : "gautham",
+						gender : "male",
+						status : "single",
+						country : "india",
+						occupation : "mathematician",
+						college : "harvard",
+						"super power" : "invisibility",
+						"favorite movie" : "fighter",
+						isRendered : false,
+						nickname : "Mr. notorious"
+				},
+				{
+						id : 2,
+						fname : "dhanush",
+						lname : "nd",
+						gender : "male",
+						status : "enjoying",
+						country : "india",
+						occupation : "doctor",
+						college : "cambridge",
+						"super power" : "condescension",
+						"favorite movie" : "american pie",
+						isRendered : false,
+						nickname : "scammer"
+				},
+				{
+						id : 3,
+						fname : "mayank",
+						lname : "gowda",
+						gender : "male",
+						status : "inasu inasu",
+						country : "japan",
+						occupation : "data scientist",
+						college : "harvard",
+						"super power" : "humor",
+						"favorite movie" : "and game",
+						isRendered : false,
+						nickname : "kalla"
+				},
+				{
+						id : 4,
+						fname : "shreya",
+						lname : "vidiyala",
+						gender : "female",
+						status : "i love u",
+						country : "india",
+						occupation : "chemist",
+						college : "bmsit",
+						"super power" : "charm",
+						"favorite movie" : "premam",
+						isRendered : false,
+						nickname : "chubby"
+				},
+				{
+						id : 5,
+						fname : "sneha",
+						lname : "manjeri",
+						gender : "female",
+						status : "im hot, and u know it",
+						country : "china",
+						occupation : "fashion desihner",
+						college : "fashion institute",
+						"super power" : "hotness",
+						"favorite movie" : "dunkirk",
+						isRendered : false,
+						nickname : "spare figure"
+				}
+			]
+		}
+	}
+		
+	handleChange(e){
+	/*we need to get the value of any of the user object, and then set is Rendered property to true.
+	if the value pertaining to the user was eraser, the is rendered property has to be set false*/
+		//console.log(e.target.value);
+		let param = e.target.value;
+		this.setState(state => ({
+			users : state.users.map(user => {
+			let vals = Object.values(user);
+			vals.forEach(val => {
+			val = val.toString();
+				if(param === ""){
+					user.isRendered = false;
+				}
+				else if(val === param){
+					user.isRendered =  user.isRendered ? false : true;
+				}
+			});
+			return user;
+		})
+		}));
+//		console.log(this.state.users);
+	}
+	
+	divStyle = () => {
+		return {
+			display : "flex",
+			alignItems : "center",
+			justifyContent : "center",
+			flexDirection : "column"
+		};
+	}
+	inpStyle = () => {
+		return {
+			width : "200px",
+			height : "20px",
+			marginBottom : "40px",
+			border : "1px solid black",
+			borderRadius : "30px",
+			textAlign : "center",
+			outline : "none",
+			transition : "0.5s",
+			fontSize : "0.8em"
+		};
+	}
+	removePlaceHolder = (e) => {
+		e.target.setAttribute('placeholder', "");
+		var x = e.target.style;
+		x.cursor = "text";
+		x.height = "40px";
+		x.width = "300px";
+		x.fontSize = "1.5em"
+	}
+	putPlaceHolder = (e) => {
+		e.target.setAttribute('placeholder', "enter id to find the user (1-5)");
+		e.target.style.height = "20px";
+		e.target.style.width = "200px";
+		e.target.style.fontSize = "0.8em";
+	}
+	render(){
+		return (
+			<div style = {this.divStyle()}>
+			<h1>Enter the name of the person you want to find : </h1>
+				<input onBlur = {this.putPlaceHolder} onClick = {this.removePlaceHolder} style = {this.inpStyle()} onChange = {this.handleChange} id = "inp" type = "text" placeholder = "enter id to find the user (1-5)"/>
+				<div>
+					<RenderUser users = {this.state.users}/>
+				</div>
+			</div>
+		)
+	}
+}
+	
+	
+function liStyle(){
+	return {
+		textAlign : "center",
+		listStyleType : "none"
+	};
+}
+
+function RenderUser(props){
+	let usersList = props.users.map(user => (user.isRendered ? 
+	(<div key = {user.id} sytle = "{divStyle()}">
+	<h1 style = {{textAlign : "center"}}>{user.nickname}</h1>
+	<ul>
+		<li style = {liStyle()}>firstname : {user.fname}</li>
+		<li style = {liStyle()}>lastname : {user.lname}</li>
+		<li style = {liStyle()}>gender : {user.gender}</li>
+		<li style = {liStyle()}>status : {user.status}</li>
+		<li style = {liStyle()}>country : {user.country}</li>
+		<li style = {liStyle()}>occupation : {user.occupation}</li>
+		<li style = {liStyle()}>college : {user.college}</li>
+		<li style = {liStyle()}>super power : {user["super power"]}</li>
+		<li style = {liStyle()}>favorite movie : {user["favorite movie"]}</li>
+	</ul>
+	</div>) 
+	: null));
+	console.log(usersList);
+	function getStyle(){
+		return {
+			fontFamily : "Arial",
+			border : "2px green solid"
+		}
+	}
+	return (
+		<div style = {getStyle()}>
+			{usersList}
+		</div>
+	);
+}
+
+ReactDOM.render(<App/>, document.getElementById('root'));
+</script>
+</body>
+</html>
