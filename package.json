@@ -1,0 +1,19 @@
+{
+  "name": "getuserinfo",
+  "version": "1.0.0",
+  "description": "simple react application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrithikgautham/simple-react-app.git"
+  },
+  "author": "hrithikgautham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hrithikgautham/simple-react-app/issues"
+  },
+  "homepage": "https://github.com/hrithikgautham/simple-react-app#readme"
+}
